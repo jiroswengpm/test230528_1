@@ -10,6 +10,14 @@ function splitText() {
     }
 
     resultDiv.textContent = result;
+
+    // 文章をテキストファイルとして保存
+    const blob = new Blob([result], {type: "text/plain;charset=utf-8"});
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'splitText.txt';
+    link.click();
+
   } else {
     alert("分割する文字数を正しく入力してください。");
   }
