@@ -1,35 +1,41 @@
 function splitText() {
   const length = document.getElementById('length').value;
-  const lineCount = document.getElementById('lineCount').value;
   const text = document.getElementById('inputText').value;
   const resultDiv = document.getElementById('result');
   const saveButton = document.getElementById('saveButton');
 
   if(length > 0) {
-    const words = text.split(' ');
-    let lineLength = 0;
-    let line = '';
+    let sentence = '';
     let result = '';
-
-    for(let i = 0; i < words.length; i++) {
-      if (lineLength + words[i].length > length) {
-        for(let j = 0; j < lineCount; j++) {
-          result += '\n';
-        }
+    let lineLength = 0;
+    
+    for (let i = 0; i < text.length; i++) {
+      sentence += text[i];
+      lineLength++;
+      
+      if ((text[i] === '.' || text[i] === '?' || text[i] === '!') && lineLength <= length) {
+        result += sentence + '\n\n';
+        sentence = '';
         lineLength = 0;
-        line = '';
-      }
+      } else if (lineLength >= length) {
+        let j = sentence.length - 1;
+        while (j >= 0 && sentence[j] !== '.' && sentence[j] !== '?' && sentence[j] !== '!') {
+          j--;
+        }
 
-      line += ' ' + words[i];
-      lineLength += words[i].length + 1;
-      result += ' ' + words[i];
-
-      if (i === words.length - 1) {
-        for(let j = 0; j < lineCount; j++) {
-          result += '\n';
+        if (j < 0) {
+          result += sentence + '\n\n';
+          sentence = '';
+          lineLength = 0;
+        } else {
+          result += sentence.substring(0, j + 1) + '\n\n';
+          sentence = sentence.substring(j + 1);
+          lineLength = sentence.length;
         }
       }
     }
+    
+    result += sentence;
 
     resultDiv.textContent = result;
 
