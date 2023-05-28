@@ -1,13 +1,34 @@
 function splitText() {
   const length = document.getElementById('length').value;
+  const lineCount = document.getElementById('lineCount').value;
   const text = document.getElementById('inputText').value;
   const resultDiv = document.getElementById('result');
   const saveButton = document.getElementById('saveButton');
 
   if(length > 0) {
+    const words = text.split(' ');
+    let lineLength = 0;
+    let line = '';
     let result = '';
-    for(let i = 0; i < text.length; i += parseInt(length)) {
-      result += text.substring(i, i + parseInt(length)) + '\n';
+
+    for(let i = 0; i < words.length; i++) {
+      if (lineLength + words[i].length > length) {
+        for(let j = 0; j < lineCount; j++) {
+          result += '\n';
+        }
+        lineLength = 0;
+        line = '';
+      }
+
+      line += ' ' + words[i];
+      lineLength += words[i].length + 1;
+      result += ' ' + words[i];
+
+      if (i === words.length - 1) {
+        for(let j = 0; j < lineCount; j++) {
+          result += '\n';
+        }
+      }
     }
 
     resultDiv.textContent = result;
