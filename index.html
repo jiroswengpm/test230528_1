@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>文章の分割</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>文章の分割</h1>
+    <label for="length">分割する文字数:</label>
+    <input type="number" id="length" min="1">
+    <label for="inputText">文章:</label>
+    <textarea id="inputText" rows="4" cols="50"></textarea>
+    <button onclick="splitText()">分割</button>
+    <h2>結果:</h2>
+    <div id="result"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
